@@ -163,9 +163,9 @@ const BlogPage: React.FC = () => {
                           </p>
                           <div className="bg-black text-vivid-green p-8 font-mono text-base md:text-lg border-4 border-black shadow-retro-lg my-8">
                              <p className="text-vivid-green/60">// Example code snippet or quote block</p>
-                             <p className="mt-4">const retroAesthetic = (pixels) => {</p>
-                             <p className="ml-8">return pixels.filter(p => p.isBold && p.hasBorders);</p>
-                             <p>};</p>
+                             <p className="mt-4">const retroAesthetic = (pixels) =&gt; {'{'}</p>
+                             <p className="ml-8">return pixels.filter(p =&gt; p.isBold && p.hasBorders);</p>
+                             <p>{'};'}</p>
                           </div>
                         </div>
 
