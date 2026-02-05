@@ -12,8 +12,9 @@ export const projects = [
     id: 1,
     title: 'Possimus',
     filename: '2020-04-08-project.html',
+    type: 'WEB_APP',
     description: 'Officia sit numquam fugiat sint molestiae id. Est modi est at debitis dolorem. Ut voluptate quod rem dolores sint molestiae maiores. Quaerat consequatur quia libero voluptatem.',
-    imageUrl: 'https://picsum.photos/800/400?grayscale&blur=2',
+    imageUrl: 'https://picsum.photos/800/400?grayscale',
     color: 'bg-vivid-yellow',
     websiteUrl: 'https://example.com',
     techStack: ['React', 'TypeScript', 'Tailwind'],
@@ -28,11 +29,12 @@ export const projects = [
     id: 2,
     title: 'Dolorum Ullam Totam',
     filename: '2020-04-08-project.html',
+    type: 'UI_DESIGN',
     description: 'Consequatur consequatur et quisquam sit velit. Distinctio sint omnis. Vitae et sint repellendus consequatur cumque eos atque. Eligendi cupiditate praesentium est.',
-    imageUrl: 'https://picsum.photos/800/401?grayscale&blur=2',
+    imageUrl: 'https://picsum.photos/800/401?grayscale',
     color: 'bg-vivid-green',
     websiteUrl: 'https://example.com',
-    techStack: ['Vue.js', 'Firebase', 'SCSS'],
+    techStack: ['Figma', 'Adobe CC', 'SCSS'],
     images: [
       'https://picsum.photos/800/600?random=5',
       'https://picsum.photos/800/600?random=6',
@@ -43,8 +45,9 @@ export const projects = [
     id: 3,
     title: 'Neon Synthwave',
     filename: '2021-06-15-project.html',
+    type: 'EXPERIMENT',
     description: 'A 3D interactive music visualizer built with Three.js. Experience the retro-futuristic vibes with real-time audio analysis and procedural generation.',
-    imageUrl: 'https://picsum.photos/800/402?grayscale&blur=2',
+    imageUrl: 'https://picsum.photos/800/402?grayscale',
     color: 'bg-vivid-pink',
     websiteUrl: 'https://example.com',
     techStack: ['Three.js', 'React Three Fiber', 'WebGL'],
@@ -58,8 +61,9 @@ export const projects = [
     id: 4,
     title: '8-Bit Dashboard',
     filename: '2021-11-20-project.html',
+    type: 'UTILITY',
     description: 'A gamified productivity dashboard with pixel art aesthetics. Track your tasks like RPG quests and level up your productivity stats.',
-    imageUrl: 'https://picsum.photos/800/403?grayscale&blur=2',
+    imageUrl: 'https://picsum.photos/800/403?grayscale',
     color: 'bg-vivid-purple',
     websiteUrl: 'https://example.com',
     techStack: ['Next.js', 'Supabase', 'Framer Motion'],
@@ -68,6 +72,30 @@ export const projects = [
       'https://picsum.photos/800/600?random=12',
       'https://picsum.photos/800/600?random=13',
     ]
+  },
+  {
+    id: 5,
+    title: 'Cyber Deck Builder',
+    filename: '2022-01-10-deck.exe',
+    type: 'WEB_APP',
+    description: 'A full-stack card game engine with real-time multiplayer capabilities. Features a custom socket-based protocol.',
+    imageUrl: 'https://picsum.photos/800/404?grayscale',
+    color: 'bg-vivid-blue',
+    websiteUrl: 'https://example.com',
+    techStack: ['Node.js', 'Socket.io', 'React'],
+    images: ['https://picsum.photos/800/600?random=14']
+  },
+  {
+    id: 6,
+    title: 'Pixel Shader Lab',
+    filename: '2022-03-22-shader.glsl',
+    type: 'EXPERIMENT',
+    description: 'A collection of high-performance GLSL shaders inspired by 90s demoscene visuals. Optimized for low-end hardware.',
+    imageUrl: 'https://picsum.photos/800/405?grayscale',
+    color: 'bg-vivid-pink',
+    websiteUrl: 'https://example.com',
+    techStack: ['GLSL', 'WebGL', 'JavaScript'],
+    images: ['https://picsum.photos/800/600?random=15']
   }
 ];
 
@@ -75,7 +103,6 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const navigate = useNavigate();
 
-  // Helper for hover states matching the bg colors defined in tailwind config
   const getHoverClass = (colorClass: string) => {
     if (colorClass.includes('yellow')) return 'hover:!bg-yellow-400';
     if (colorClass.includes('green')) return 'hover:!bg-green-400';
@@ -85,15 +112,13 @@ const Projects: React.FC = () => {
     return 'hover:!bg-gray-200';
   };
 
-  // Determine a complementary color for the second button to create visual interest
   const getComplementaryColor = (colorClass: string) => {
-    // Pairing logic: Yellow <-> Purple, Green <-> Pink, Blue <-> Yellow
     if (colorClass.includes('yellow')) return 'bg-vivid-purple';
     if (colorClass.includes('green')) return 'bg-vivid-pink';
     if (colorClass.includes('blue')) return 'bg-vivid-yellow';
     if (colorClass.includes('pink')) return 'bg-vivid-green';
     if (colorClass.includes('purple')) return 'bg-vivid-yellow';
-    return 'bg-vivid-blue'; // Default fallback
+    return 'bg-vivid-blue';
   };
 
   const handleNextProject = () => {
@@ -112,7 +137,6 @@ const Projects: React.FC = () => {
 
   return (
     <section id="projects" className="w-full border-b-2 border-black bg-pastel-blue py-16 relative overflow-hidden">
-       {/* Background Pattern - Parallax Layer */}
        <div className="absolute inset-0 z-0 h-[120%] -top-[10%] opacity-20">
           <Parallax speed={0.05} className="w-full h-full">
             <div className="w-full h-full bg-grid"></div>
@@ -137,8 +161,7 @@ const Projects: React.FC = () => {
                   className="h-full transition-transform duration-300 hover:-translate-y-2 hover:shadow-retro-xl flex flex-col"
                   headerClassName={project.color}
                 >
-                  <div className="flex flex-col h-full">
-                    {/* Image Container - Opens Modal */}
+                  <div className="flex flex-col h-full bg-white">
                     <div 
                         className="w-full h-48 sm:h-64 border-b-2 border-black overflow-hidden relative group shrink-0 cursor-pointer"
                         onClick={() => setSelectedProject(project)}
@@ -147,30 +170,31 @@ const Projects: React.FC = () => {
                       <img 
                         src={project.imageUrl} 
                         alt={project.title} 
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-100"
                       />
                       <div className="absolute inset-0 bg-vivid-blue bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 mix-blend-multiply"></div>
                     </div>
                     
-                    {/* Content */}
                     <div className="flex flex-1 flex-col p-6 lg:p-8 bg-white">
                       <div className="flex-1">
-                        <h3 className="mb-4 text-2xl font-black">{project.title}</h3>
-                        <p className="mb-6 text-sm leading-relaxed text-gray-700">
+                        <div className="flex justify-between items-start mb-2">
+                           <h3 className="text-2xl font-black text-black">{project.title}</h3>
+                           <span className="font-mono text-[10px] bg-black text-white px-1.5 py-0.5 uppercase tracking-tighter">{project.type}</span>
+                        </div>
+                        <p className="mb-6 text-sm leading-relaxed text-black font-bold">
                           {project.description}
                         </p>
 
-                        {/* Tech Stack */}
                         <div className="mb-6">
-                            <div className="flex items-center gap-2 mb-3 opacity-60">
-                                <Code2 size={16} />
-                                <span className="font-mono text-xs font-bold uppercase tracking-wider">Tech Stack</span>
+                            <div className="flex items-center gap-2 mb-3 opacity-80">
+                                <Code2 size={16} className="text-black" />
+                                <span className="font-mono text-xs font-black uppercase tracking-wider text-black">Tech Stack</span>
                             </div>
                             <div className="flex flex-wrap gap-2">
                                 {project.techStack.map((tech) => (
                                     <span 
                                         key={tech} 
-                                        className="inline-block border border-black bg-gray-50 px-2 py-1 text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-[1px] hover:-translate-x-[1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all cursor-default"
+                                        className="inline-block border-2 border-black bg-white px-2 py-1 text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-[1px] hover:-translate-x-[1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all cursor-default text-black"
                                     >
                                         {tech}
                                     </span>
@@ -179,15 +203,14 @@ const Projects: React.FC = () => {
                         </div>
                       </div>
                       
-                      {/* Buttons Area - Side by Side 50% split */}
                       <div className="mt-6 flex flex-row gap-3">
                         <RetroButton 
                           onClick={() => navigate(`/project/${project.id}`)}
                           className={`flex-1 justify-center px-2 sm:px-4 !border-black ${project.color.replace('bg-', '!bg-')} ${getHoverClass(project.color)}`}
                           title="View Details Page"
                         >
-                          <span className="flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-bold">
-                              <Eye size={18} className="shrink-0" strokeWidth={2.5} />
+                          <span className="flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-black">
+                              <Eye size={18} className="shrink-0" strokeWidth={3} />
                               <span className="whitespace-nowrap">View Project</span>
                           </span>
                         </RetroButton>
@@ -197,13 +220,12 @@ const Projects: React.FC = () => {
                           className={`flex-1 justify-center px-2 sm:px-4 !border-black ${complementaryColor.replace('bg-', '!bg-')} ${getHoverClass(complementaryColor)}`}
                           title="Visit Live Site"
                         >
-                          <span className="flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-bold">
-                              <ExternalLink size={18} className="shrink-0" strokeWidth={2.5} />
+                          <span className="flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-black">
+                              <ExternalLink size={18} className="shrink-0" strokeWidth={3} />
                               <span className="whitespace-nowrap">Visit Website</span>
                           </span>
                         </RetroButton>
                       </div>
-
                     </div>
                   </div>
                 </WindowCard>

@@ -45,9 +45,32 @@ class RetroSound {
     osc.stop(this.ctx.currentTime + 0.05);
   }
 
+  playTyping() {
+    if (!this.enabled || !this.ctx) return;
+    this.initCtx();
+    if (this.ctx.state !== 'running') return;
+    
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    // Mechanical "tick" sound
+    osc.type = 'triangle';
+    // Randomize pitch slightly for a more organic mechanical feel
+    const freq = 400 + Math.random() * 300;
+    osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+    
+    gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.02);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.02);
+  }
+
   playHover() {
     if (!this.enabled || !this.ctx) return;
-    // this.initCtx(); // Often don't resume on hover to avoid aggressive autoplay policies or annoyance
     
     // Very subtle high tick
     if (this.ctx.state === 'running') {

@@ -1,10 +1,11 @@
 import { GoogleGenAI } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
+// Strictly following @google/genai coding guidelines
+// Initializing with the process.env directly to ensure the SDK uses the injected key
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
 export const getMacResponse = async (userMessage: string): Promise<string> => {
-  if (!apiKey) {
+  if (!process.env.API_KEY) {
     return "I seem to have lost my connection to the matrix (API Key missing).";
   }
 

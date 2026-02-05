@@ -3,6 +3,8 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import ProjectDetail from './components/ProjectDetail';
+import ProjectsPage from './components/ProjectsPage';
+import BlogPage from './components/BlogPage';
 import ChatPage from './components/ChatPage';
 import ContactPage from './components/ContactPage';
 import AboutPage from './components/AboutPage';
@@ -12,6 +14,7 @@ import { soundEffects } from './utils/soundEffects';
 import BootScreen from './components/ui/BootScreen';
 import Scanlines from './components/ui/Scanlines';
 import CustomCursor from './components/ui/CustomCursor';
+import MusicWidget from './components/ui/MusicWidget';
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -44,7 +47,9 @@ const App: React.FC = () => {
           <main className="flex-1 w-full">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/project/:id" element={<ProjectDetail />} />
+              <Route path="/blog" element={<BlogPage />} />
               <Route path="/chat" element={<ChatPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/about" element={<AboutPage />} />
@@ -65,6 +70,9 @@ const App: React.FC = () => {
               <MessageSquare size={24} strokeWidth={2.5} />
             </Link>
           )}
+
+          {/* Retro Music Widget */}
+          <MusicWidget />
         </div>
       )}
     </>

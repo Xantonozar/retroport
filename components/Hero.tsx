@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RetroButton from './ui/RetroButton';
@@ -13,33 +14,44 @@ const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   useGSAP(() => {
-    // 1. Entrance Animation - Text Stagger
-    const textElements = heroTextRef.current?.children;
-    if (textElements) {
-      gsap.from(textElements, {
-        y: 100,
+    // 1. Entrance Animation
+    const textLines = heroTextRef.current?.querySelectorAll('.animate-line');
+    if (textLines) {
+      gsap.from(textLines, {
+        y: 60,
+        rotationX: -45,
         opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power4.out",
-        delay: 0.2
+        duration: 1.2,
+        stagger: 0.15,
+        ease: "back.out(1.7)",
+        delay: 0.3
       });
     }
 
-    // 2. Continuous Floating Animation for Illustration Elements
-    // Use scoped selector for safety
+    // 2. Floating Animation for Illustration
     const q = gsap.utils.selector(containerRef);
     const monitor = q('.hero-monitor');
     const pen = q('.hero-pen');
     const decorative = q('.hero-decor');
 
     if (monitor.length > 0) {
+      // General floating
       gsap.to(monitor, {
         y: -15,
         duration: 3,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
+      });
+
+      // Subtle high-frequency "hum" (vibration)
+      gsap.to(monitor, {
+        x: "+=0.5",
+        y: "+=0.5",
+        duration: 0.05,
+        repeat: -1,
+        yoyo: true,
+        ease: "none"
       });
     }
 
@@ -56,9 +68,9 @@ const Hero: React.FC = () => {
     
     if (decorative.length > 0) {
       gsap.to(decorative, {
-        y: -10,
-        duration: 4,
-        stagger: 0.5,
+        y: (i) => i % 2 === 0 ? -15 : 15,
+        rotation: (i) => i % 2 === 0 ? 10 : -10,
+        duration: (i) => 3 + i,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
@@ -67,25 +79,38 @@ const Hero: React.FC = () => {
 
     // 3. Mouse Move Parallax
     const onMouseMove = (e: MouseEvent) => {
-      if (!illustrationRef.current) return;
+      if (!illustrationRef.current || !containerRef.current) return;
       
-      const { clientX, clientY } = e;
-      const xPos = (clientX / window.innerWidth - 0.5);
-      const yPos = (clientY / window.innerHeight - 0.5);
+      const rect = containerRef.current.getBoundingClientRect();
+      const xPos = ((e.clientX - rect.left) / rect.width - 0.5);
+      // Fix: Changed 'top' to 'rect.top' to resolve arithmetic operation type error
+      const yPos = ((e.clientY - rect.top) / rect.height - 0.5);
 
-      // Move illustration container opposite to mouse
+      gsap.to('.hero-decor-far', {
+        x: xPos * -15,
+        y: yPos * -15,
+        duration: 2,
+        ease: "power2.out"
+      });
+
+      gsap.to(decorative, {
+        x: xPos * -40,
+        y: yPos * -40,
+        duration: 1.5,
+        ease: "power2.out"
+      });
+
       gsap.to(illustrationRef.current, {
-        x: xPos * -30,
-        y: yPos * -30,
+        x: xPos * -20,
+        y: yPos * -20,
         duration: 1,
         ease: "power2.out"
       });
 
-      // Move individual elements for depth - reusing scoped selectors
       if (monitor.length) {
         gsap.to(monitor, {
-            x: xPos * -20,
-            rotation: xPos * -5,
+            rotationY: xPos * 15,
+            rotationX: yPos * -10,
             duration: 1.2,
             ease: "power2.out"
         });
@@ -93,8 +118,8 @@ const Hero: React.FC = () => {
 
       if (pen.length) {
         gsap.to(pen, {
-            x: xPos * -50,
-            rotation: xPos * 10,
+            x: xPos * -60,
+            rotation: xPos * 15,
             duration: 1.2,
             ease: "power2.out"
         });
@@ -107,27 +132,31 @@ const Hero: React.FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-24 overflow-visible relative">
-      {/* Background Particles */}
-      <RetroParticles className="absolute inset-0 z-0 opacity-60 pointer-events-none mix-blend-multiply" />
+    <section ref={containerRef} className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-24 overflow-visible relative perspective-1000">
+      <RetroParticles className="hero-decor-far absolute inset-0 z-0 opacity-40 pointer-events-none mix-blend-multiply" />
+      
+      <div className="hero-decor-far absolute inset-0 z-0 pointer-events-none opacity-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 border-4 border-dashed border-black rounded-full scale-150"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 border-4 border-black rotate-12"></div>
+      </div>
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8 items-center relative z-10">
-        
-        {/* Text Content */}
         <div ref={heroTextRef} className="flex flex-col items-start space-y-6 relative z-10 lg:pr-8">
           <h1 className="text-6xl font-black tracking-tight text-black sm:text-7xl lg:text-8xl leading-none">
-            <div className="overflow-hidden">
-                <span className="inline-block glitch" data-text="Hello.">Hello.</span>
+            <div className="overflow-hidden mb-2">
+                <span className="animate-line inline-block glitch" data-text="Hello.">Hello.</span>
             </div>
             <div className="overflow-hidden">
-              <span className="inline-block">I'm <span className="text-vivid-blue underline decoration-4 underline-offset-4 decoration-vivid-yellow glitch" data-text="Mac.">Mac.</span></span>
+              <span className="animate-line inline-block glitch" data-text="I'm Mac.">I'm <span className="text-vivid-blue underline decoration-4 underline-offset-4 decoration-vivid-yellow">Mac.</span></span>
             </div>
           </h1>
-          <p className="max-w-md text-lg font-medium text-black sm:text-xl leading-relaxed">
-            I'm a free retro Webflow template made by <span className="underline decoration-2 decoration-vivid-pink">Mackenzie Child</span>.
-            Recreated in React with vivid colors and Tailwind CSS.
-          </p>
-          <div className="pt-4 flex flex-wrap gap-4">
+          <div className="animate-line">
+            <p className="max-w-md text-lg font-medium text-black sm:text-xl leading-relaxed">
+              I'm a free retro Webflow template made by <span className="underline decoration-2 decoration-vivid-pink">Mackenzie Child</span>.
+              Recreated in React with vivid colors and Tailwind CSS.
+            </p>
+          </div>
+          <div className="animate-line pt-4 flex flex-wrap gap-4">
             <RetroButton 
               variant="accent" 
               onClick={() => navigate('/contact')}
@@ -148,9 +177,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Illustration Area */}
         <div ref={illustrationRef} className="flex justify-center lg:justify-end relative">
-             {/* Background Geometric Elements */}
              <div className="hero-decor absolute -left-12 top-10 pointer-events-none z-0">
                 <div className="text-6xl text-vivid-pink font-black opacity-80">×</div>
              </div>
@@ -162,10 +189,12 @@ const Hero: React.FC = () => {
              <div className="hero-decor absolute -right-12 top-20 z-0">
                 <div className="h-6 w-6 rounded-full border-2 border-black bg-vivid-green"></div>
              </div>
+
+             <div className="hero-decor absolute -bottom-10 right-1/2 z-0">
+                <div className="h-12 w-12 border-2 border-black bg-vivid-purple rotate-45"></div>
+             </div>
               
-             {/* Main Illustration Container */}
-             <div className="flex items-end gap-4 relative z-10">
-                {/* The Pen */}
+             <div className="flex items-end gap-4 relative z-10 preserve-3d">
                 <div className="hero-pen flex flex-col items-center">
                   <div className="mb-2 flex h-32 w-12 flex-col items-center rounded-t-full border-2 border-black bg-vivid-yellow shadow-retro p-2 justify-between">
                       <div className="w-2 h-2 rounded-full border border-black bg-white"></div>
@@ -174,26 +203,29 @@ const Hero: React.FC = () => {
                   </div>
                 </div>
 
-                {/* The Monitor */}
                 <div className="hero-monitor relative rounded-xl border-4 border-black bg-white p-2 shadow-retro-xl">
-                    <div className="relative rounded-lg border-2 border-black bg-pastel-blue p-4 md:p-8">
-                      {/* Screen Content - Rectangular */}
+                    <div className="relative rounded-lg border-2 border-black bg-pastel-blue p-4 md:p-8 overflow-hidden">
                       <div className="flex h-32 w-48 md:h-48 md:w-64 items-center justify-center border-4 border-black bg-white overflow-hidden relative group rounded-sm shadow-inner">
                           <img 
                             src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" 
                             alt="Retro Interface" 
-                            className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-110"
+                            className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-110 animate-monitor-glow"
                           />
                           <div className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent pointer-events-none mix-blend-overlay"></div>
+                          <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]"></div>
                       </div>
                     </div>
-                    {/* Monitor Base */}
                     <div className="mx-auto mt-2 h-4 w-32 border-2 border-black bg-white"></div>
                     <div className="mx-auto h-2 w-48 border-2 border-black bg-black"></div>
                 </div>
              </div>
         </div>
       </div>
+      
+      <style dangerouslySetInnerHTML={{ __html: `
+        .perspective-1000 { perspective: 1000px; }
+        .preserve-3d { transform-style: preserve-3d; }
+      `}} />
     </section>
   );
 };

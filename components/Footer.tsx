@@ -215,4 +215,11 @@ const Footer: React.FC = () => {
       {/* Retro Circuit Pattern Strip */}
       <div className="h-2 w-full bg-black flex overflow-hidden">
          {Array.from({length: 20}).map((_, i) => (
-             <div key={i} className={`h-full flex-1 border-r border-gray-800 ${i % 3 === 0 ? 'bg-vivid-pink/20' : ''
+             <div key={i} className={`h-full flex-1 border-r border-gray-800 ${i % 3 === 0 ? 'bg-vivid-pink/20' : ''}`}></div>
+         ))}
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

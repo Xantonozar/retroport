@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
-// Vibrant neon-retro colors
+// Vibrant neon-retro colors that pop against the light footer
 const COLORS = [
   '#FF00C1', // Neon Pink
   '#00FFF9', // Neon Cyan
@@ -9,6 +9,8 @@ const COLORS = [
   '#39FF14', // Acid Green
   '#9D00FF', // Electric Purple
   '#FF5E00', // Bright Orange
+  '#FF0000', // Classic Red
+  '#0033FF', // Deep Blue
 ];
 
 const SHAPES = [
@@ -24,21 +26,24 @@ const SHAPES = [
 const TetrisAnimation: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<(HTMLDivElement | null)[][]>([]);
-  const blockSize = 20;
+  const blockSize = 24; // Slightly larger for better visibility
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const cols = Math.floor(container.offsetWidth / blockSize);
-    const rows = Math.floor(container.offsetHeight / blockSize);
+    const updateGridSize = () => {
+      const cols = Math.floor(container.offsetWidth / blockSize);
+      const rows = Math.floor(container.offsetHeight / blockSize);
+      return { cols, rows };
+    };
 
-    // Initialize grid state
+    let { cols, rows } = updateGridSize();
     gridRef.current = Array.from({ length: rows }, () => Array(cols).fill(null));
 
     const checkAndClearRows = () => {
       const grid = gridRef.current;
-      let rowsToClear: number[] = [];
+      const rowsToClear: number[] = [];
 
       // Find full rows
       for (let r = 0; r < rows; r++) {
@@ -49,23 +54,26 @@ const TetrisAnimation: React.FC = () => {
 
       if (rowsToClear.length === 0) return;
 
-      // Animate clearing
+      // Arcade-style clearing animation
       const tl = gsap.timeline({
         onComplete: () => {
-          // Remove elements and shift grid
-          rowsToClear.forEach(rIndex => {
+          // Process removals from bottom to top to maintain index integrity during splice
+          const sortedRows = [...rowsToClear].sort((a, b) => b - a);
+          
+          sortedRows.forEach(rIndex => {
             grid[rIndex].forEach(cell => cell?.remove());
             grid.splice(rIndex, 1);
+            // Add new empty row at the top
             grid.unshift(Array(cols).fill(null));
           });
 
-          // Animate remaining blocks down
+          // Gravity effect for remaining blocks
           grid.forEach((row, r) => {
             row.forEach((cell) => {
               if (cell) {
                 gsap.to(cell, {
                   top: r * blockSize,
-                  duration: 0.3,
+                  duration: 0.4,
                   ease: "bounce.out"
                 });
               }
@@ -74,15 +82,23 @@ const TetrisAnimation: React.FC = () => {
         }
       });
 
+      // Dramatic flash then shrink effect
       rowsToClear.forEach(rIndex => {
         tl.to(grid[rIndex], {
-          backgroundColor: '#FFF',
-          filter: 'brightness(3)',
-          opacity: 0,
-          scale: 1.1,
-          duration: 0.2,
-          stagger: 0.02
+          backgroundColor: '#FFFFFF',
+          boxShadow: '0 0 20px #FFFFFF, 0 0 40px #FFFFFF',
+          scale: 1.2,
+          duration: 0.1,
+          stagger: 0.03
         }, 0);
+        
+        tl.to(grid[rIndex], {
+          opacity: 0,
+          scale: 0,
+          rotate: 45,
+          duration: 0.3,
+          stagger: 0.02
+        }, 0.15);
       });
     };
 
@@ -92,10 +108,12 @@ const TetrisAnimation: React.FC = () => {
       const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
       const color = COLORS[Math.floor(Math.random() * COLORS.length)];
       const shapeWidth = shape[0].length;
+      
+      // Intelligent spawning: try to pick a column that has gaps
       const startCol = Math.floor(Math.random() * (cols - shapeWidth));
       
-      // Calculate landing row (Collision Detection)
-      let landingRow = rows - shape.length;
+      // Collision Detection: find where it lands
+      let landingRow = -1;
       for (let r = 0; r <= rows - shape.length; r++) {
         let collision = false;
         for (let sr = 0; sr < shape.length; sr++) {
@@ -107,21 +125,32 @@ const TetrisAnimation: React.FC = () => {
           }
           if (collision) break;
         }
+        
         if (collision) {
           landingRow = r - 1;
           break;
         }
+        if (r === rows - shape.length) {
+          landingRow = r;
+        }
       }
 
-      // Don't spawn if the landing row is off-screen (game over state)
-      if (landingRow < 0) {
-          // Reset grid if full
-          gridRef.current.forEach(row => row.forEach(cell => cell?.remove()));
-          gridRef.current = Array.from({ length: rows }, () => Array(cols).fill(null));
+      // Game Over / Reset state if it stacks too high
+      if (landingRow < 1) {
+          gsap.to(container.children, {
+            opacity: 0,
+            y: 20,
+            stagger: 0.01,
+            duration: 0.5,
+            onComplete: () => {
+              gridRef.current.forEach(row => row.forEach(cell => cell?.remove()));
+              gridRef.current = Array.from({ length: rows }, () => Array(cols).fill(null));
+            }
+          });
           return;
       }
 
-      // Create block elements
+      // Create piece elements
       const activeBlocks: HTMLDivElement[] = [];
       shape.forEach((row, sr) => {
         row.forEach((cell, sc) => {
@@ -131,26 +160,26 @@ const TetrisAnimation: React.FC = () => {
             block.style.width = `${blockSize}px`;
             block.style.height = `${blockSize}px`;
             block.style.backgroundColor = color;
-            block.style.border = '1px solid black';
-            block.style.boxShadow = 'inset -2px -2px 0px rgba(0,0,0,0.3), inset 2px 2px 0px rgba(255,255,255,0.4)';
+            block.style.border = '2px solid black';
+            // Classic Tetris bevel effect
+            block.style.boxShadow = 'inset -3px -3px 0px rgba(0,0,0,0.4), inset 3px 3px 0px rgba(255,255,255,0.5)';
             block.style.left = `${(startCol + sc) * blockSize}px`;
-            block.style.top = `-${blockSize * 4}px`;
+            block.style.top = `-${blockSize * 2}px`;
+            block.style.zIndex = '0';
             container.appendChild(block);
             activeBlocks.push(block);
 
-            // Temporarily store target data for animation
             (block as any).targetPos = { r: landingRow + sr, c: startCol + sc };
           }
         });
       });
 
-      // Drop animation
+      // Quick arcade drop animation
       gsap.to(activeBlocks, {
         top: (i, target) => (target.targetPos.r * blockSize),
-        duration: 1.5,
-        ease: "none",
+        duration: 0.8,
+        ease: "power2.in",
         onComplete: () => {
-          // Register blocks in the grid
           activeBlocks.forEach((block: any) => {
             const { r, c } = block.targetPos;
             if (gridRef.current[r]) {
@@ -162,14 +191,29 @@ const TetrisAnimation: React.FC = () => {
       });
     };
 
-    const interval = setInterval(spawnBlock, 1500);
-    return () => clearInterval(interval);
+    // Spawn more frequently to keep the background active
+    const interval = setInterval(spawnBlock, 1000);
+
+    const handleResize = () => {
+      const newSize = updateGridSize();
+      cols = newSize.cols;
+      rows = newSize.rows;
+      // Note: Full grid reset on resize is simpler for background animations
+      gridRef.current.forEach(row => row.forEach(cell => cell?.remove()));
+      gridRef.current = Array.from({ length: rows }, () => Array(cols).fill(null));
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
     <div 
       ref={containerRef} 
-      className="absolute inset-0 z-0 overflow-hidden opacity-40 pointer-events-none"
+      className="absolute inset-0 z-0 overflow-hidden opacity-30 pointer-events-none"
       aria-hidden="true"
     />
   );

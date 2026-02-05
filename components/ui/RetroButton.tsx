@@ -15,7 +15,7 @@ const RetroButton: React.FC<RetroButtonProps> = ({
   onClick,
   ...props 
 }) => {
-  const baseStyles = "relative font-bold border-2 border-black transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-retro disabled:active:translate-x-0 disabled:active:translate-y-0 disabled:active:shadow-retro disabled:animate-pulse";
+  const baseStyles = "relative font-bold border-2 border-black transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-retro disabled:active:translate-x-0 disabled:active:translate-y-0 disabled:active:shadow-retro disabled:animate-pulse";
   
   const variants = {
     primary: "bg-vivid-yellow text-black shadow-retro hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-retro-lg hover:bg-yellow-400 disabled:hover:bg-vivid-yellow",

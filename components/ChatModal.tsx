@@ -56,6 +56,11 @@ const ChatModal: React.FC<ChatModalProps> = ({ onClose }) => {
     if (e.key === 'Enter') handleSend();
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    soundEffects.playTyping();
+    setInput(e.target.value);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
       <div className="w-full max-w-md animate-in fade-in zoom-in duration-200">
@@ -110,7 +115,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ onClose }) => {
                 <input
                   type="text"
                   value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                   placeholder="Type your query..."
                   className="flex-1 border-2 border-black p-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-black/20"

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script>
+      // Tailwind Config
       tailwind.config = {
         theme: {
           extend: {
@@ -22,7 +23,7 @@
               'retro-xl': '12px 12px 0px 0px rgba(0,0,0,1)',
             },
             colors: {
-              'retro-bg': '#F2F0E4', /* Warm Cream / Beige - Darkened from #FFFEF9 */
+              'retro-bg': '#F2F0E4', /* Warm Cream / Beige */
               'vivid-pink': '#FFC4D6', /* Pastel Pink */
               'vivid-yellow': '#FFF59D', /* Pastel Yellow */
               'vivid-blue': '#A0C4FF', /* Pastel Blue */
@@ -36,6 +37,7 @@
               'float-delayed': 'float 6s ease-in-out 3s infinite',
               'scan': 'scan 4s linear infinite',
               'flicker': 'flicker 0.15s infinite',
+              'monitor-glow': 'monitor-glow 4s ease-in-out infinite',
             },
             keyframes: {
               float: {
@@ -50,6 +52,12 @@
                 '0%': { opacity: '0.02' },
                 '50%': { opacity: '0.05' },
                 '100%': { opacity: '0.02' }
+              },
+              'monitor-glow': {
+                '0%, 100%': { opacity: '0.8', filter: 'brightness(1)' },
+                '50%': { opacity: '1', filter: 'brightness(1.1)' },
+                '15%, 85%': { filter: 'brightness(1.02)' },
+                '20%': { opacity: '0.9', filter: 'brightness(0.95)' }
               }
             }
           },
@@ -57,11 +65,9 @@
       }
     </script>
     <style>
-      /* Custom pattern utility */
       .bg-dots {
-        background-image: radial-gradient(#000000 1px, transparent 1px);
+        background-image: radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
         background-size: 20px 20px;
-        opacity: 0.1;
       }
       .bg-grid {
         background-size: 40px 40px;
@@ -69,14 +75,19 @@
                           linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
       }
       
-      /* Fallback for devices with no pointer fine control */
-      @media (pointer: coarse) {
-        .custom-cursor {
-          display: none;
-        }
+      .bg-scanlines {
+        background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+        background-size: 100% 4px;
       }
 
-      /* Glitch Effect */
+      .perspective-500 { perspective: 500px; }
+      .perspective-1000 { perspective: 1000px; }
+      
+      @media (pointer: coarse) {
+        .custom-cursor { display: none; }
+      }
+
+      /* Glitch Effect - Refined for intermittent bursts */
       .glitch {
         position: relative;
         display: inline-block;
@@ -89,54 +100,50 @@
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: 0.8;
+        opacity: 0;
+        pointer-events: none;
       }
       .glitch::before {
         color: #ff00c1;
         z-index: -1;
-        clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-        animation: glitch-anim-1 4s infinite linear alternate-reverse;
-        transform: translate(-2px, 2px);
-        opacity: 0;
+        animation: glitch-anim-1 5s infinite linear alternate-reverse;
       }
       .glitch::after {
         color: #00fff9;
         z-index: -2;
-        clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-        animation: glitch-anim-2 4s infinite linear alternate-reverse;
-        transform: translate(2px, -2px);
-        opacity: 0;
+        animation: glitch-anim-2 5s infinite linear alternate-reverse;
       }
 
       @keyframes glitch-anim-1 {
-        0% { opacity: 0; transform: translate(0); clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); }
-        92% { opacity: 0; transform: translate(0); }
-        94% { opacity: 1; transform: translate(-4px, 2px); clip-path: polygon(0 10%, 100% 10%, 100% 30%, 0 30%); }
-        96% { opacity: 1; transform: translate(4px, -2px); clip-path: polygon(0 50%, 100% 50%, 100% 60%, 0 60%); }
-        98% { opacity: 0; transform: translate(0); }
-        100% { opacity: 0; transform: translate(0); }
+        0%, 70%, 75%, 85%, 90%, 100% { opacity: 0; transform: translate(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        71% { opacity: 0.8; transform: translate(-3px, 1px); clip-path: polygon(0 15%, 100% 15%, 100% 25%, 0 25%); }
+        74% { opacity: 0.8; transform: translate(2px, -1px); clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); }
+        86% { opacity: 0.8; transform: translate(-2px, 3px); clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); }
+        89% { opacity: 0.8; transform: translate(3px, -2px); clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 50%); }
       }
 
       @keyframes glitch-anim-2 {
-        0% { opacity: 0; transform: translate(0); clip-path: polygon(0 70%, 100% 70%, 100% 90%, 0 90%); }
-        90% { opacity: 0; transform: translate(0); }
-        92% { opacity: 1; transform: translate(3px, -3px); clip-path: polygon(0 10%, 100% 10%, 100% 40%, 0 40%); }
-        94% { opacity: 1; transform: translate(-3px, 3px); clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); }
-        96% { opacity: 0; transform: translate(0); }
-        100% { opacity: 0; transform: translate(0); }
+        0%, 72%, 77%, 87%, 92%, 100% { opacity: 0; transform: translate(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        73% { opacity: 0.8; transform: translate(3px, -1px); clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); }
+        76% { opacity: 0.8; transform: translate(-2px, 2px); clip-path: polygon(0 75%, 100% 75%, 100% 85%, 0 85%); }
+        88% { opacity: 0.8; transform: translate(2px, -3px); clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%); }
+        91% { opacity: 0.8; transform: translate(-3px, 2px); clip-path: polygon(0 85%, 100% 85%, 100% 95%, 0 95%); }
       }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
     "react/": "https://esm.sh/react@^19.2.4/",
     "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "react-router-dom": "https://esm.sh/react-router-dom@6",
-    "@gsap/react": "https://esm.sh/@gsap/react@^2.1.2",
-    "gsap": "https://esm.sh/gsap@^3.14.2"
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+    "gsap/": "https://esm.sh/gsap@^3.14.2/",
+    "gsap": "https://esm.sh/gsap@^3.14.2",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.3",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@gsap/react": "https://esm.sh/@gsap/react@^2.1.2"
   }
 }
 </script>

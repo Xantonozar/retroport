@@ -44,6 +44,11 @@ const ChatPage: React.FC = () => {
     if (e.key === 'Enter') handleSend();
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    soundEffects.playTyping();
+    setInput(e.target.value);
+  };
+
   return (
     <div className="min-h-screen w-full bg-retro-bg py-8 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
        <div className="w-full max-w-4xl">
@@ -100,7 +105,7 @@ const ChatPage: React.FC = () => {
                     <input
                       type="text"
                       value={input}
-                      onChange={(e) => setInput(e.target.value)}
+                      onChange={handleInputChange}
                       onKeyDown={handleKeyDown}
                       placeholder="Type your query..."
                       className="flex-1 border-2 border-black p-3 font-mono focus:outline-none focus:ring-2 focus:ring-black/20"

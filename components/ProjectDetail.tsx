@@ -168,9 +168,9 @@ const ProjectDetail: React.FC = () => {
                            {/* Retro Console */}
                            <div className="p-4 bg-black text-green-400 font-mono text-xs rounded border-2 border-black shadow-retro mb-6 relative overflow-hidden">
                               <div className="absolute top-0 left-0 w-full h-[1px] bg-green-400/30 animate-scan"></div>
-                              <p>> initiating_sequence...</p>
-                              <p>> verification_complete</p>
-                              <p>> ready_for_download <span className="animate-pulse">_</span></p>
+                              <p>&gt; initiating_sequence...</p>
+                              <p>&gt; verification_complete</p>
+                              <p>&gt; ready_for_download <span className="animate-pulse">_</span></p>
                            </div>
                            
                            <div className="flex flex-col sm:flex-row gap-4">
