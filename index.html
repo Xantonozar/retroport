@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mac's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['"Space Mono"', 'monospace'],
+            },
+            boxShadow: {
+              'retro': '4px 4px 0px 0px rgba(0,0,0,1)',
+              'retro-lg': '8px 8px 0px 0px rgba(0,0,0,1)',
+              'retro-xl': '12px 12px 0px 0px rgba(0,0,0,1)',
+            },
+            colors: {
+              'retro-bg': '#F2F0E4', /* Warm Cream / Beige - Darkened from #FFFEF9 */
+              'vivid-pink': '#FFC4D6', /* Pastel Pink */
+              'vivid-yellow': '#FFF59D', /* Pastel Yellow */
+              'vivid-blue': '#A0C4FF', /* Pastel Blue */
+              'vivid-green': '#B9FBC0', /* Pastel Green */
+              'vivid-purple': '#E0BBE4', /* Pastel Purple */
+              'pastel-blue': '#EBF8FF', /* Lightest Blue */
+              'pastel-pink': '#FFF0F5', /* Lavender Blush */
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'float-delayed': 'float 6s ease-in-out 3s infinite',
+              'scan': 'scan 4s linear infinite',
+              'flicker': 'flicker 0.15s infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              scan: {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(500%)' }
+              },
+              flicker: {
+                '0%': { opacity: '0.02' },
+                '50%': { opacity: '0.05' },
+                '100%': { opacity: '0.02' }
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      /* Custom pattern utility */
+      .bg-dots {
+        background-image: radial-gradient(#000000 1px, transparent 1px);
+        background-size: 20px 20px;
+        opacity: 0.1;
+      }
+      .bg-grid {
+        background-size: 40px 40px;
+        background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+      }
+      
+      /* Fallback for devices with no pointer fine control */
+      @media (pointer: coarse) {
+        .custom-cursor {
+          display: none;
+        }
+      }
+
+      /* Glitch Effect */
+      .glitch {
+        position: relative;
+        display: inline-block;
+      }
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+      }
+      .glitch::before {
+        color: #ff00c1;
+        z-index: -1;
+        clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        animation: glitch-anim-1 4s infinite linear alternate-reverse;
+        transform: translate(-2px, 2px);
+        opacity: 0;
+      }
+      .glitch::after {
+        color: #00fff9;
+        z-index: -2;
+        clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+        animation: glitch-anim-2 4s infinite linear alternate-reverse;
+        transform: translate(2px, -2px);
+        opacity: 0;
+      }
+
+      @keyframes glitch-anim-1 {
+        0% { opacity: 0; transform: translate(0); clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); }
+        92% { opacity: 0; transform: translate(0); }
+        94% { opacity: 1; transform: translate(-4px, 2px); clip-path: polygon(0 10%, 100% 10%, 100% 30%, 0 30%); }
+        96% { opacity: 1; transform: translate(4px, -2px); clip-path: polygon(0 50%, 100% 50%, 100% 60%, 0 60%); }
+        98% { opacity: 0; transform: translate(0); }
+        100% { opacity: 0; transform: translate(0); }
+      }
+
+      @keyframes glitch-anim-2 {
+        0% { opacity: 0; transform: translate(0); clip-path: polygon(0 70%, 100% 70%, 100% 90%, 0 90%); }
+        90% { opacity: 0; transform: translate(0); }
+        92% { opacity: 1; transform: translate(3px, -3px); clip-path: polygon(0 10%, 100% 10%, 100% 40%, 0 40%); }
+        94% { opacity: 1; transform: translate(-3px, 3px); clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); }
+        96% { opacity: 0; transform: translate(0); }
+        100% { opacity: 0; transform: translate(0); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@6",
+    "@gsap/react": "https://esm.sh/@gsap/react@^2.1.2",
+    "gsap": "https://esm.sh/gsap@^3.14.2"
+  }
+}
+</script>
+</head>
+  <body class="bg-retro-bg text-black antialiased selection:bg-vivid-pink selection:text-black">
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+  </body>
+</html>
