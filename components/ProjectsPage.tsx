@@ -57,7 +57,7 @@ const ProjectsPage: React.FC = () => {
 
             <div className="flex items-center gap-2 font-mono text-xs font-black bg-black text-white px-3 py-1 border-2 border-black shadow-retro">
               <HardDrive size={14} className="text-vivid-green" />
-              <span>C:\MAC_OS\USER\PROJECTS{activeType !== 'ALL' ? `\\${activeType}` : ''}</span>
+              <span>C:\ZADID_OS\USER\PROJECTS{activeType !== 'ALL' ? `\\${activeType}` : ''}</span>
             </div>
           </div>
         </ScrollReveal>
@@ -189,7 +189,7 @@ const ProjectsPage: React.FC = () => {
                       <div className="h-3 w-32 border-2 border-black bg-white p-[2px] hidden sm:block">
                          <div className="h-full bg-vivid-green w-full"></div>
                       </div>
-                      <span className="text-black">MAC_OS V1.0</span>
+                      <span className="text-black">ZADID_OS V1.0</span>
                    </div>
                 </div>
               </div>

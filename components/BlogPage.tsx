@@ -55,7 +55,7 @@ const BlogPage: React.FC = () => {
 
             <div className="flex items-center gap-3 font-mono text-sm font-bold bg-black text-white px-4 py-2 border-2 border-black shadow-retro">
               <HardDrive size={16} className="text-vivid-blue" />
-              <span>C:\MAC_OS\USER\BLOG{activeCategory !== 'ALL' ? `\\${activeCategory}` : ''}</span>
+              <span>C:\ZADID_OS\USER\BLOG{activeCategory !== 'ALL' ? `\\${activeCategory}` : ''}</span>
             </div>
           </div>
         </ScrollReveal>

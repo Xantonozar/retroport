@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RetroButton from './ui/RetroButton';
@@ -35,7 +34,6 @@ const Hero: React.FC = () => {
     const decorative = q('.hero-decor');
 
     if (monitor.length > 0) {
-      // General floating
       gsap.to(monitor, {
         y: -15,
         duration: 3,
@@ -43,8 +41,6 @@ const Hero: React.FC = () => {
         yoyo: true,
         ease: "sine.inOut"
       });
-
-      // Subtle high-frequency "hum" (vibration)
       gsap.to(monitor, {
         x: "+=0.5",
         y: "+=0.5",
@@ -77,58 +73,22 @@ const Hero: React.FC = () => {
       });
     }
 
-    // 3. Mouse Move Parallax
     const onMouseMove = (e: MouseEvent) => {
       if (!illustrationRef.current || !containerRef.current) return;
-      
       const rect = containerRef.current.getBoundingClientRect();
       const xPos = ((e.clientX - rect.left) / rect.width - 0.5);
-      // Fix: Changed 'top' to 'rect.top' to resolve arithmetic operation type error
       const yPos = ((e.clientY - rect.top) / rect.height - 0.5);
 
-      gsap.to('.hero-decor-far', {
-        x: xPos * -15,
-        y: yPos * -15,
-        duration: 2,
-        ease: "power2.out"
-      });
-
-      gsap.to(decorative, {
-        x: xPos * -40,
-        y: yPos * -40,
-        duration: 1.5,
-        ease: "power2.out"
-      });
-
-      gsap.to(illustrationRef.current, {
-        x: xPos * -20,
-        y: yPos * -20,
-        duration: 1,
-        ease: "power2.out"
-      });
-
+      gsap.to('.hero-decor-far', { x: xPos * -15, y: yPos * -15, duration: 2, ease: "power2.out" });
+      gsap.to(decorative, { x: xPos * -40, y: yPos * -40, duration: 1.5, ease: "power2.out" });
+      gsap.to(illustrationRef.current, { x: xPos * -20, y: yPos * -20, duration: 1, ease: "power2.out" });
       if (monitor.length) {
-        gsap.to(monitor, {
-            rotationY: xPos * 15,
-            rotationX: yPos * -10,
-            duration: 1.2,
-            ease: "power2.out"
-        });
-      }
-
-      if (pen.length) {
-        gsap.to(pen, {
-            x: xPos * -60,
-            rotation: xPos * 15,
-            duration: 1.2,
-            ease: "power2.out"
-        });
+        gsap.to(monitor, { rotationY: xPos * 15, rotationX: yPos * -10, duration: 1.2, ease: "power2.out" });
       }
     };
 
     window.addEventListener('mousemove', onMouseMove);
     return () => window.removeEventListener('mousemove', onMouseMove);
-
   }, { scope: containerRef });
 
   return (
@@ -147,13 +107,12 @@ const Hero: React.FC = () => {
                 <span className="animate-line inline-block glitch" data-text="Hello.">Hello.</span>
             </div>
             <div className="overflow-hidden">
-              <span className="animate-line inline-block glitch" data-text="I'm Mac.">I'm <span className="text-vivid-blue underline decoration-4 underline-offset-4 decoration-vivid-yellow">Mac.</span></span>
+              <span className="animate-line inline-block glitch" data-text="I'm Zadid.">I'm <span className="text-vivid-blue underline decoration-4 underline-offset-4 decoration-vivid-yellow">Zadid.</span></span>
             </div>
           </h1>
           <div className="animate-line">
             <p className="max-w-md text-lg font-medium text-black sm:text-xl leading-relaxed">
-              I'm a free retro Webflow template made by <span className="underline decoration-2 decoration-vivid-pink">Mackenzie Child</span>.
-              Recreated in React with vivid colors and Tailwind CSS.
+              Civil Engineer @ AUST & <span className="underline decoration-2 decoration-vivid-pink">MERN Stack Architect</span>. I bridge the gap between physical structures and digital ecosystems with clean code and bold design.
             </p>
           </div>
           <div className="animate-line pt-4 flex flex-wrap gap-4">
@@ -163,7 +122,7 @@ const Hero: React.FC = () => {
               className="flex items-center gap-2"
             >
               <Mail size={20} />
-              <span>Contact Me</span>
+              <span>Initiate Sync</span>
             </RetroButton>
 
             <RetroButton 
@@ -172,28 +131,12 @@ const Hero: React.FC = () => {
               className="flex items-center gap-2 bg-white"
             >
               <User size={20} />
-              <span>About Me</span>
+              <span>Full Profile</span>
             </RetroButton>
           </div>
         </div>
 
         <div ref={illustrationRef} className="flex justify-center lg:justify-end relative">
-             <div className="hero-decor absolute -left-12 top-10 pointer-events-none z-0">
-                <div className="text-6xl text-vivid-pink font-black opacity-80">×</div>
-             </div>
-             
-             <div className="hero-decor absolute -left-8 -top-8 z-0">
-                <div className="text-4xl text-vivid-blue font-black opacity-80">°</div>
-             </div>
-              
-             <div className="hero-decor absolute -right-12 top-20 z-0">
-                <div className="h-6 w-6 rounded-full border-2 border-black bg-vivid-green"></div>
-             </div>
-
-             <div className="hero-decor absolute -bottom-10 right-1/2 z-0">
-                <div className="h-12 w-12 border-2 border-black bg-vivid-purple rotate-45"></div>
-             </div>
-              
              <div className="flex items-end gap-4 relative z-10 preserve-3d">
                 <div className="hero-pen flex flex-col items-center">
                   <div className="mb-2 flex h-32 w-12 flex-col items-center rounded-t-full border-2 border-black bg-vivid-yellow shadow-retro p-2 justify-between">
@@ -207,12 +150,15 @@ const Hero: React.FC = () => {
                     <div className="relative rounded-lg border-2 border-black bg-pastel-blue p-4 md:p-8 overflow-hidden">
                       <div className="flex h-32 w-48 md:h-48 md:w-64 items-center justify-center border-4 border-black bg-white overflow-hidden relative group rounded-sm shadow-inner">
                           <img 
-                            src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" 
-                            alt="Retro Interface" 
+                            src="/zadid.jpg" 
+                            alt="Zadid" 
+                            onError={(e) => {
+                              e.currentTarget.src = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop";
+                              e.currentTarget.onerror = null;
+                            }}
                             className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-110 animate-monitor-glow"
                           />
                           <div className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent pointer-events-none mix-blend-overlay"></div>
-                          <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]"></div>
                       </div>
                     </div>
                     <div className="mx-auto mt-2 h-4 w-32 border-2 border-black bg-white"></div>
@@ -221,7 +167,6 @@ const Hero: React.FC = () => {
              </div>
         </div>
       </div>
-      
       <style dangerouslySetInnerHTML={{ __html: `
         .perspective-1000 { perspective: 1000px; }
         .preserve-3d { transform-style: preserve-3d; }

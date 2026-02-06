@@ -6,7 +6,7 @@ import gsap from 'gsap';
 const TRACKS = [
   {
     title: "NEON_NIGHTS_V2.MID",
-    artist: "MAC_CHIPTUNES",
+    artist: "ZADID_CHIPTUNES",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     cover: "https://images.unsplash.com/photo-1550741827-4bd374c3f58b?w=200&h=200&fit=crop&q=80"
   },
@@ -18,7 +18,7 @@ const TRACKS = [
   },
   {
     title: "LOFI_BUFFER_01.MID",
-    artist: "MAC_CORE",
+    artist: "ZADID_CORE",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
     cover: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=200&h=200&fit=crop&q=80"
   }

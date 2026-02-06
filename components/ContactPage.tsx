@@ -67,7 +67,7 @@ const ContactPage: React.FC = () => {
 
             <div className="flex items-center gap-3 font-mono text-sm font-black bg-black text-white px-4 py-2 border-2 border-black shadow-retro">
               <Terminal size={16} className="text-vivid-green" />
-              <span>C:\MAC_OS\USER\COMMS\OUTBOX.EXE</span>
+              <span>C:\ZADID_OS\USER\COMMS\OUTBOX.EXE</span>
             </div>
           </div>
         </ScrollReveal>
@@ -82,13 +82,17 @@ const ContactPage: React.FC = () => {
                   <div className="flex flex-col items-center">
                     <div className="w-24 h-24 border-4 border-black bg-pastel-blue mb-4 flex items-center justify-center shadow-retro overflow-hidden group">
                       <img 
-                        src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop" 
+                        src="/zadid.jpg" 
+                        onError={(e) => {
+                           e.currentTarget.src = "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop";
+                           e.currentTarget.onerror = null;
+                        }}
                         alt="Profile avatar" 
                         className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                       />
                     </div>
                     <div className="text-center">
-                      <h2 className="text-2xl font-black uppercase tracking-tighter">MAC_UNIT_01</h2>
+                      <h2 className="text-2xl font-black uppercase tracking-tighter">ZADID_UNIT_01</h2>
                       <p className="text-xs font-mono font-black text-gray-500 uppercase">Status: Available_For_Sync</p>
                     </div>
                   </div>
@@ -98,7 +102,7 @@ const ContactPage: React.FC = () => {
                       <div className="w-8 h-8 border-2 border-black bg-vivid-yellow flex items-center justify-center shadow-retro group-hover:translate-x-1 transition-transform">
                         <Mail size={16} />
                       </div>
-                      <span className="font-mono text-xs font-black truncate">HELLO@MAC.DESIGN</span>
+                      <span className="font-mono text-xs font-black truncate">HELLO@ZADID.DESIGN</span>
                     </div>
                     <div className="flex items-center gap-3 group">
                       <div className="w-8 h-8 border-2 border-black bg-vivid-pink flex items-center justify-center shadow-retro group-hover:translate-x-1 transition-transform">
@@ -110,7 +114,7 @@ const ContactPage: React.FC = () => {
                       <div className="w-8 h-8 border-2 border-black bg-vivid-green flex items-center justify-center shadow-retro group-hover:translate-x-1 transition-transform">
                         <Globe size={16} />
                       </div>
-                      <span className="font-mono text-xs font-black uppercase">WWW.MAC_OS.COM</span>
+                      <span className="font-mono text-xs font-black uppercase">WWW.ZADID_OS.COM</span>
                     </div>
                   </div>
                 </div>

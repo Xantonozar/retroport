@@ -49,9 +49,9 @@ const Navbar: React.FC = () => {
             </div>
             <span 
               className="hidden font-mono text-xl font-bold tracking-tight sm:block text-black glitch" 
-              data-text="MAC'S"
+              data-text="ZADID"
             >
-              MAC'S
+              ZADID
             </span>
           </Link>
 

@@ -63,7 +63,7 @@ const ProjectDetail: React.FC = () => {
                         <div className="w-full aspect-video lg:aspect-square border-2 border-black shadow-retro overflow-hidden relative group bg-white">
                            {project.imageUrl ? (
                              <>
-                                <img src={project.imageUrl} alt="Project icon" className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                                <img src={project.imageUrl} alt="Project icon" className="h-full w-full object-cover transition-all duration-500" />
                                 <div className="absolute inset-0 bg-vivid-blue/10 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity"></div>
                              </>
                            ) : (
@@ -75,13 +75,12 @@ const ProjectDetail: React.FC = () => {
 
                         {/* Metadata Panel */}
                         <div className="font-mono text-xs border-2 border-black bg-white p-4 shadow-retro">
-                           <div className="border-b-2 border-black pb-2 mb-3 font-bold text-center tracking-widest">FILE_METADATA</div>
-                           {/* Grid on mobile to save vertical space, Stack on desktop */}
+                           <div className="border-b-2 border-black pb-2 mb-3 font-bold text-center tracking-widest uppercase">File Metadata</div>
                            <div className="grid grid-cols-2 gap-y-2 gap-x-4 lg:flex lg:flex-col lg:gap-y-3 lg:space-y-0">
-                               <div className="flex justify-between items-center"><span className="text-gray-500">STATUS</span> <span className="bg-green-100 text-green-700 px-1 border border-green-700 font-bold">ONLINE</span></div>
+                               <div className="flex justify-between items-center"><span className="text-gray-500">STATUS</span> <span className="bg-green-100 text-green-700 px-1 border border-green-700 font-bold uppercase">Ready</span></div>
                                <div className="flex justify-between"><span className="text-gray-500">SIZE</span> <span>1.44 MB</span></div>
-                               <div className="flex justify-between"><span className="text-gray-500">TYPE</span> <span>DIR/JSX</span></div>
-                               <div className="flex justify-between"><span className="text-gray-500">MODIFIED</span> <span>1999-12-31</span></div>
+                               <div className="flex justify-between"><span className="text-gray-500">TYPE</span> <span>DIR/SOURCE</span></div>
+                               <div className="flex justify-between"><span className="text-gray-500">SECTOR</span> <span>AUST_B01</span></div>
                            </div>
                         </div>
 
@@ -107,7 +106,7 @@ const ProjectDetail: React.FC = () => {
                         <div className="mb-8">
                             {/* Header Section */}
                             <div className="flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-4 mb-6">
-                                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">{title}</h1>
+                                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight uppercase italic">{title}</h1>
                                 <a 
                                     href={project.websiteUrl} 
                                     target="_blank" 
@@ -118,24 +117,14 @@ const ProjectDetail: React.FC = () => {
                                 </a>
                             </div>
                             
-                            {project.description ? (
-                               <div className="prose prose-lg max-w-none mb-8">
-                                   <p className="text-base sm:text-lg leading-relaxed text-gray-800 font-medium border-l-4 border-black pl-4 sm:pl-6 py-1">
-                                       {project.description}
-                                   </p>
-                                   <p className="text-gray-600 mt-4 text-sm sm:text-base">
-                                     Additional project details, challenges faced, and architectural decisions would typically be displayed here. The project focuses on creating a unique user experience through {project.techStack?.join(', ')}.
-                                   </p>
-                               </div>
-                            ) : (
-                               <div className="font-mono text-sm leading-relaxed text-gray-600 mb-8 border-l-4 border-vivid-blue pl-4 bg-blue-50/30 p-4">
-                                    <div className="mb-2 text-xs font-bold uppercase tracking-widest text-vivid-blue opacity-70">
-                                         // System Message: Data Retrieval Failed
-                                    </div>
-                                    <p>Accessing classified project archives...</p>
-                                    <p className="mt-2"><span className="text-red-500 font-bold">Error 404:</span> Description data corrupted in transit.</p>
-                               </div>
-                            )}
+                            <div className="prose prose-lg max-w-none mb-8">
+                                <p className="text-base sm:text-lg leading-relaxed text-gray-800 font-medium border-l-4 border-black pl-4 sm:pl-6 py-1">
+                                    {project.description}
+                                </p>
+                                <p className="text-gray-600 mt-4 text-sm sm:text-base">
+                                  This project represents an implementation focused on modern web architectures using the MERN stack. Developed with a high emphasis on scalability, maintainability, and user accessibility.
+                                </p>
+                            </div>
                         </div>
 
                         {/* Image Gallery Section */}
@@ -143,36 +132,24 @@ const ProjectDetail: React.FC = () => {
                             <div className="mb-10">
                                 <div className="flex items-center gap-2 mb-4 border-b-2 border-gray-100 pb-2">
                                     <ImageIcon size={20} />
-                                    <h3 className="font-black text-xl">Gallery</h3>
+                                    <h3 className="font-black text-xl uppercase italic">Visual Buffer</h3>
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {project.images.slice(0, 4).map((img, idx) => (
-                                        <div key={idx} className="group relative border-2 border-black shadow-retro overflow-hidden aspect-[4/3] bg-gray-100">
+                                <div className="grid grid-cols-1 gap-6">
+                                    {project.images.map((img, idx) => (
+                                        <div key={idx} className="group relative border-2 border-black shadow-retro overflow-hidden bg-gray-100">
                                             <img 
                                                 src={img} 
                                                 alt={`Screenshot ${idx + 1}`} 
-                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" 
+                                                className="w-full h-auto transition-transform duration-500 group-hover:scale-102" 
                                             />
-                                            <div className="absolute inset-0 ring-4 ring-black/0 group-hover:ring-black/10 transition-all"></div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         )}
 
-                        {/* Spacer to push footer down */}
-                        <div className="flex-1 min-h-[1rem]"></div>
-
                         {/* Action Footer */}
-                        <div className="border-t-2 border-dashed border-gray-300 pt-8">
-                           {/* Retro Console */}
-                           <div className="p-4 bg-black text-green-400 font-mono text-xs rounded border-2 border-black shadow-retro mb-6 relative overflow-hidden">
-                              <div className="absolute top-0 left-0 w-full h-[1px] bg-green-400/30 animate-scan"></div>
-                              <p>&gt; initiating_sequence...</p>
-                              <p>&gt; verification_complete</p>
-                              <p>&gt; ready_for_download <span className="animate-pulse">_</span></p>
-                           </div>
-                           
+                        <div className="border-t-2 border-dashed border-gray-300 pt-8 mt-auto">
                            <div className="flex flex-col sm:flex-row gap-4">
                               <RetroButton 
                                 variant="primary" 
@@ -181,29 +158,18 @@ const ProjectDetail: React.FC = () => {
                               >
                                  <div className="flex items-center gap-2">
                                     <ExternalLink size={18} className="transition-transform duration-300 group-hover:scale-110" />
-                                    <span>Visit Live Site</span>
+                                    <span>Access Live Terminal</span>
                                  </div>
                               </RetroButton>
 
                               <RetroButton 
                                 variant="secondary" 
-                                onClick={() => alert("Source code is currently encrypted. Check back later.")}
+                                onClick={() => alert("Code access restricted to administrators.")}
                                 className="group flex-1 justify-center"
                               >
                                  <div className="flex items-center gap-2">
                                     <FileCode size={18} className="transition-transform duration-300 group-hover:rotate-12" />
-                                    <span>View Source</span>
-                                 </div>
-                              </RetroButton>
-
-                              <RetroButton 
-                                variant="secondary"
-                                onClick={() => alert("Download started...")}
-                                className="group flex-1 justify-center"
-                              >
-                                 <div className="flex items-center gap-2">
-                                    <Download size={18} className="transition-transform duration-300 group-hover:translate-y-1" />
-                                    <span>.ZIP Asset</span>
+                                    <span>Source Code</span>
                                  </div>
                               </RetroButton>
                            </div>

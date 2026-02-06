@@ -14,7 +14,7 @@ interface Message {
 const ChatPage: React.FC = () => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello. I\'m Mac. Ask me anything about this template or retro design.' }
+    { role: 'assistant', content: 'Hello. I\'m Zadid. Ask me anything about this template or retro design.' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -63,7 +63,7 @@ const ChatPage: React.FC = () => {
 
          <ScrollReveal delay={150} className="w-full">
             <WindowCard 
-              title="ask_mac.exe" 
+              title="ask_zadid.exe" 
               className="h-[75vh] w-full shadow-retro-xl"
               headerClassName="bg-blue-600 text-white" 
             >

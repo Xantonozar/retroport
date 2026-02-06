@@ -16,7 +16,7 @@ interface Message {
 const ChatModal: React.FC<ChatModalProps> = ({ onClose }) => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello. I\'m Mac. Ask me anything about this template or retro design.' }
+    { role: 'assistant', content: 'Hello. I\'m Zadid. Ask me anything about this template or retro design.' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -65,7 +65,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ onClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
       <div className="w-full max-w-md animate-in fade-in zoom-in duration-200">
         <WindowCard 
-          title="ask_mac.exe" 
+          title="ask_zadid.exe" 
           className="h-[500px]"
           headerClassName="bg-blue-600 text-white" 
         >

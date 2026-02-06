@@ -189,7 +189,7 @@ const Footer: React.FC = () => {
           <div className="mt-16 flex flex-col items-center justify-between border-t-2 border-black pt-8 md:flex-row gap-8">
             <div className="text-center md:text-left">
               <h3 className="text-xl font-black text-black flex items-center gap-2">
-                <Cpu size={20} /> Mac's Portfolio
+                <Cpu size={20} /> Zadid's Portfolio
               </h3>
               <p className="font-mono text-[10px] font-bold text-gray-500 mt-1 uppercase">
                 Est. 1999 • Built with nostalgic pixels and React
