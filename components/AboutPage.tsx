@@ -84,11 +84,7 @@ const AboutPage: React.FC = () => {
               <div className="p-6 bg-white space-y-6">
                 <div className="relative border-4 border-black p-2 shadow-retro">
                   <img 
-                    src="/zadid.jpg" 
-                    onError={(e) => {
-                       e.currentTarget.src = "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=400";
-                       e.currentTarget.onerror = null;
-                    }}
+                    src="https://res.cloudinary.com/chirkut/image/upload/v1770391931/WhatsApp_Image_2026-02-06_at_9.30.45_PMs_zivlmv.jpg" 
                     alt="Salman Ahmed Zadid" 
                     className="w-full grayscale contrast-125"
                   />

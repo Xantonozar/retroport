@@ -24,11 +24,7 @@ const About: React.FC = () => {
                     <div className="absolute inset-0 bg-black translate-x-6 translate-y-6 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
                     <div className="relative border-4 border-black bg-white p-2 w-72 h-72 sm:w-96 sm:h-96 overflow-hidden">
                         <img 
-                            src="/zadid.jpg" 
-                            onError={(e) => {
-                               e.currentTarget.src = "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=1000";
-                               e.currentTarget.onerror = null;
-                            }}
+                            src="https://res.cloudinary.com/chirkut/image/upload/v1770391931/WhatsApp_Image_2026-02-06_at_9.30.45_PMs_zivlmv.jpg" 
                             alt="Profile" 
                             className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 scale-110"
                         />

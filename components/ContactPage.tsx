@@ -82,7 +82,7 @@ const ContactPage: React.FC = () => {
                   <div className="flex flex-col items-center">
                     <div className="w-24 h-24 border-4 border-black bg-pastel-blue mb-4 flex items-center justify-center shadow-retro overflow-hidden group">
                       <img 
-                        src="/zadid.jpg" 
+                        src="https://res.cloudinary.com/chirkut/image/upload/v1770391931/WhatsApp_Image_2026-02-06_at_9.30.45_PMsa_eurbkn.jpg" 
                         onError={(e) => {
                            e.currentTarget.src = "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop";
                            e.currentTarget.onerror = null;

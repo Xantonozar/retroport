@@ -6,120 +6,171 @@ import { Link } from 'react-router-dom';
 export const blogPosts = [
   { 
     id: 1, 
-    title: 'The Future of Brutalist Design',
-    excerpt: 'Why raw pixels and heavy borders are making a massive comeback in the modern web.',
+    title: 'Structural Health Monitoring via Neural Networks',
+    excerpt: 'Utilizing deep learning to interpret real-time sensor data from bridge infrastructure for predictive maintenance.',
     date: '2024-03-15',
-    category: 'DESIGN',
-    filename: '2024-03-15-brutalism.pdf', 
-    img: 'https://images.unsplash.com/photo-1550741827-4bd374c3f58b?w=800&q=80', 
+    category: 'STRUCTURAL',
+    filename: 'shm_neural_v1.log', 
+    img: 'https://images.unsplash.com/photo-1545459720-aac273a27b37?w=800&q=80', 
     headerColor: 'bg-vivid-blue',
-    readTime: '5MIN'
+    readTime: '6MIN',
+    content: 'Structural Health Monitoring (SHM) is undergoing a paradigm shift. Traditional threshold-based alerts are being replaced by Convolutional Neural Networks (CNNs) that can detect minute anomalies in vibration patterns before visible cracks appear.'
   },
   { 
     id: 2, 
-    title: 'Optimizing for 56k Modems',
-    excerpt: 'Lost arts of image compression and asset loading from the golden age of the internet.',
+    title: 'Computer Vision in Construction Safety',
+    excerpt: 'Automating jobsite hazard detection using real-time video analytics and object detection algorithms.',
     date: '2024-02-28',
-    category: 'TECH',
-    filename: '2024-02-28-modems.pdf', 
-    img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80', 
+    category: 'CONSTRUCTION',
+    filename: 'cv_safety_proc.bat', 
+    img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80', 
     headerColor: 'bg-vivid-green',
-    readTime: '3MIN'
+    readTime: '5MIN',
+    content: 'The construction sector remains one of the highest-risk industries. Machine Learning, specifically YOLO-based object detection, allows for real-time monitoring of PPE compliance.'
   },
   { 
     id: 3, 
-    title: 'The Aesthetic of CRT Flicker',
-    excerpt: 'Recreating the warm glow and scanning lines of classic monitors in modern CSS.',
+    title: 'Geotechnical Site Characterization & ML',
+    excerpt: 'Predicting soil liquefaction potential and settlement using regression-based machine learning models.',
     date: '2024-01-12',
-    category: 'RETRO',
-    filename: '2024-01-12-crt.pdf', 
-    img: 'https://images.unsplash.com/photo-1547082299-de196ea013d6?w=800&q=80', 
+    category: 'GEOTECHNICAL',
+    filename: 'soil_logic_ext.sys', 
+    img: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80', 
     headerColor: 'bg-vivid-yellow',
-    readTime: '8MIN'
+    readTime: '7MIN',
+    content: 'Geotechnical engineering deals with high uncertainty. ML algorithms like Random Forests are now used to correlate SPT results with liquefaction potential.'
   },
   { 
     id: 4, 
-    title: 'CSS Grid vs. Tables',
-    excerpt: 'A nostalgic look at how we used to layout websites before the flexbox revolution.',
+    title: 'Smart Transportation & Autonomous Grids',
+    excerpt: 'Optimizing urban traffic flow and pavement management through reinforcement learning and big data.',
     date: '2023-12-05',
-    category: 'TECH',
-    filename: '2023-12-05-layout.pdf', 
-    img: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80', 
+    category: 'TRANSPORT',
+    filename: 'traffic_grid.cfg', 
+    img: 'https://images.unsplash.com/photo-1545147986-a9d6f210df77?w=800&q=80', 
     headerColor: 'bg-vivid-purple',
-    readTime: '4MIN'
+    readTime: '8MIN',
+    content: 'Transportation engineering is evolving into a discipline of data science. Reinforcement Learning agents are managing adaptive traffic signals.'
   },
+  { 
+    id: 5, 
+    title: 'Hydrological Forecasting with LSTMs',
+    excerpt: 'Applying Long Short-Term Memory networks for precise flood stage prediction and urban runoff modeling.',
+    date: '2023-11-20',
+    category: 'WATER_RES',
+    filename: 'flood_stage.exe', 
+    img: 'https://images.unsplash.com/photo-1468433965447-33a2a8cf499a?w=800&q=80', 
+    headerColor: 'bg-vivid-pink',
+    readTime: '6MIN',
+    content: 'Water resource management requires handling complex time-series data. LSTM networks are exceptionally effective at capturing temporal dependencies.'
+  }
 ];
 
 const Blog: React.FC = () => {
   return (
-    <section id="blog" className="w-full bg-pastel-pink py-16 border-b-2 border-black">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="blog" className="w-full bg-pastel-pink py-20 border-b-2 border-black relative overflow-hidden">
+      {/* Subtle grid overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-5">
+        <div className="h-full w-full bg-grid"></div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal>
-          <div className="mb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-            <div>
-              <h2 className="text-5xl font-black tracking-tight sm:text-6xl text-black">From the blog</h2>
-              <p className="mt-3 text-black font-mono text-base font-black uppercase tracking-widest">ARCHIVED_THOUGHTS.LOG</p>
+          <div className="mb-16 flex flex-col md:flex-row items-start md:items-end justify-between gap-8 border-b-4 border-black pb-8">
+            <div className="space-y-2">
+              <h2 className="text-5xl font-black tracking-tighter sm:text-7xl text-black uppercase italic">Technical Archive</h2>
+              <div className="flex items-center gap-3">
+                 <span className="h-4 w-4 bg-black animate-pulse"></span>
+                 <p className="text-black font-mono text-base font-black uppercase tracking-[0.2em]">CIVIL_ENG_X_ML.LOG</p>
+              </div>
             </div>
-            <Link to="/blog" className="inline-block font-black uppercase text-sm px-6 py-2 border-2 border-black bg-white shadow-retro hover:shadow-retro-lg hover:-translate-y-1 transition-all">
-              View all blog posts
+            <Link to="/blog" className="group relative inline-block font-black uppercase text-base px-8 py-3 border-4 border-black bg-vivid-yellow shadow-retro hover:shadow-retro-lg hover:-translate-y-1 transition-all active:translate-y-0 active:shadow-none">
+              Explore All Logs
+              <span className="absolute -top-3 -right-3 bg-black text-white text-[10px] px-1.5 py-0.5 border border-white">SYS_ARCHIVE</span>
             </Link>
           </div>
         </ScrollReveal>
 
         <ScrollReveal delay={200}>
-          <div className="relative w-full">
-              {/* Desktop Layout - "Messy Stack" visual trick */}
-              <div className="hidden lg:grid grid-cols-12 gap-0 pb-32 pt-8 px-4">
-                  {blogPosts.map((post, idx) => {
-                    const rotations = ['-rotate-1', 'rotate-3', '-rotate-2', 'rotate-1'];
-                    const colSpans = ['col-span-6 col-start-1', 'col-span-5 col-start-7 -ml-12 mt-12', 'col-span-5 col-start-3 -mt-32', 'col-span-6 col-start-7 -mt-48 ml-8'];
-                    const zIndices = ['z-10', 'z-20', 'z-30', 'z-40'];
-                    
-                    return (
-                      <div key={post.id} className={`${colSpans[idx]} relative ${zIndices[idx]} transform ${rotations[idx]} transition-all duration-500 hover:z-50 hover:scale-105 hover:rotate-0 group`}>
-                           <WindowCard title={post.filename} headerClassName={post.headerColor} className="shadow-retro-lg group-hover:shadow-retro-xl">
-                              <div className="relative overflow-hidden bg-white">
-                                <img src={post.img} className="w-full h-72 object-cover transition-all duration-700 group-hover:scale-110 border-b-4 border-black opacity-100" />
-                                <div className="absolute bottom-0 left-0 bg-black text-white px-3 py-1 font-mono text-xs font-black border-r-2 border-t-2 border-white shadow-retro">READ_TIME: {post.readTime}</div>
-                                <div className="absolute top-0 right-0 bg-white border-b-4 border-l-4 border-black px-3 py-1 font-mono text-xs font-black uppercase text-black">{post.category}</div>
-                              </div>
-                              <div className="p-6 bg-white group-hover:bg-gray-50 transition-colors border-t-2 border-black/5">
-                                <h3 className="font-black text-2xl mb-3 text-black leading-tight group-hover:text-vivid-blue transition-colors">{post.title}</h3>
-                                <div className="flex items-center justify-between mt-4">
-                                  <p className="text-xs text-black font-mono font-black uppercase bg-black/5 px-2 py-0.5">{post.date}</p>
-                                  <div className="h-2 w-16 bg-black group-hover:bg-vivid-pink transition-all duration-500"></div>
-                                </div>
-                              </div>
-                           </WindowCard>
-                      </div>
-                    );
-                  })}
+          {/* Stylized "Messy Stack" with 5 cards total */}
+          <div className="flex flex-col gap-10 lg:gap-16">
+            {/* Top row: 3 cards with slight rotations */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+              <div className="lg:-rotate-1 hover:rotate-0 transition-all duration-300">
+                <BlogCard post={blogPosts[0]} />
               </div>
-
-              {/* Mobile Layout - Simple Stack */}
-              <div className="flex flex-col gap-10 lg:hidden pb-12">
-                  {blogPosts.map((post, idx) => (
-                      <div key={post.id} className={`transform ${idx % 2 === 0 ? '-rotate-1' : 'rotate-1'}`}>
-                        <WindowCard title={post.filename} headerClassName={post.headerColor} className="shadow-retro-lg">
-                            <div className="bg-white">
-                              <img src={post.img} className="w-full h-56 object-cover border-b-4 border-black opacity-100" />
-                              <div className="p-5 bg-white">
-                                <h3 className="font-black text-2xl text-black leading-tight">{post.title}</h3>
-                                <div className="flex justify-between items-center mt-4">
-                                  <p className="text-xs text-black font-mono font-black uppercase">{post.date} — {post.category}</p>
-                                  <span className="font-mono text-[10px] bg-black text-white px-2 py-0.5">V1.0</span>
-                                </div>
-                              </div>
-                            </div>
-                        </WindowCard>
-                      </div>
-                  ))}
+              <div className="lg:rotate-1 lg:translate-y-4 hover:rotate-0 hover:translate-y-0 transition-all duration-300">
+                <BlogCard post={blogPosts[1]} />
               </div>
+              <div className="lg:-rotate-2 hover:rotate-0 transition-all duration-300">
+                <BlogCard post={blogPosts[2]} />
+              </div>
+            </div>
+            
+            {/* Bottom row: 2 cards centered */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:justify-center gap-8 lg:gap-12">
+              <div className="lg:w-1/3 lg:rotate-1 hover:rotate-0 transition-all duration-300">
+                <BlogCard post={blogPosts[3]} />
+              </div>
+              <div className="lg:w-1/3 lg:-rotate-1 lg:-translate-y-2 hover:rotate-0 hover:translate-y-0 transition-all duration-300">
+                <BlogCard post={blogPosts[4]} />
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-20 text-center">
+             <div className="inline-block p-4 border-2 border-black border-dashed font-mono text-xs font-black text-gray-500 bg-white/50">
+               // DATA_SYNC_COMPLETE // 5_SECTORS_LOADED //
+             </div>
           </div>
         </ScrollReveal>
       </div>
     </section>
   );
 };
+
+// Internal Helper for moderate-sized card
+const BlogCard: React.FC<{ post: typeof blogPosts[0] }> = ({ post }) => (
+  <div className="group h-full flex flex-col">
+    <WindowCard 
+      title={post.filename} 
+      headerClassName={post.headerColor} 
+      className="h-full shadow-retro transition-all duration-300 hover:shadow-retro-lg"
+    >
+      <div className="flex flex-col h-full bg-white">
+        <div className="relative h-48 overflow-hidden border-b-2 border-black">
+          <img 
+            src={post.img} 
+            alt={post.title} 
+            className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
+          />
+          <div className="absolute inset-0 bg-scanlines opacity-10 pointer-events-none"></div>
+          <div className="absolute bottom-2 left-2 bg-black text-white px-2 py-0.5 font-mono text-[10px] font-black border border-white">
+            {post.readTime}
+          </div>
+          <div className="absolute top-2 right-2 bg-white border-2 border-black px-2 py-0.5 font-mono text-[10px] font-black uppercase shadow-retro">
+            {post.category}
+          </div>
+        </div>
+        <div className="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 className="font-black text-lg mb-3 text-black leading-tight group-hover:text-vivid-blue transition-colors line-clamp-2 uppercase italic tracking-tighter">
+              {post.title}
+            </h3>
+            <p className="text-xs font-bold text-gray-700 line-clamp-2 mb-4 leading-relaxed">
+              {post.excerpt}
+            </p>
+          </div>
+          <div className="flex items-center justify-between pt-4 border-t-2 border-dashed border-gray-100">
+             <span className="text-[10px] font-mono font-black text-gray-400">{post.date}</span>
+             <Link to="/blog" className="text-[10px] font-mono font-black bg-black text-white px-3 py-1 hover:bg-vivid-pink hover:text-black transition-colors border border-black">
+                READ_PROTOCOL >>
+             </Link>
+          </div>
+        </div>
+      </div>
+    </WindowCard>
+  </div>
+);
 
 export default Blog;

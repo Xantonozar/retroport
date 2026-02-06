@@ -150,12 +150,8 @@ const Hero: React.FC = () => {
                     <div className="relative rounded-lg border-2 border-black bg-pastel-blue p-4 md:p-8 overflow-hidden">
                       <div className="flex h-32 w-48 md:h-48 md:w-64 items-center justify-center border-4 border-black bg-white overflow-hidden relative group rounded-sm shadow-inner">
                           <img 
-                            src="/zadid.jpg" 
+                            src="https://res.cloudinary.com/chirkut/image/upload/v1770391931/WhatsApp_Image_2026-02-06_at_9.30.44_PM_lnzhrq.jpg" 
                             alt="Zadid" 
-                            onError={(e) => {
-                              e.currentTarget.src = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop";
-                              e.currentTarget.onerror = null;
-                            }}
                             className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-110 animate-monitor-glow"
                           />
                           <div className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent pointer-events-none mix-blend-overlay"></div>
