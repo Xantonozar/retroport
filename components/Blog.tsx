@@ -69,7 +69,6 @@ export const blogPosts = [
 const Blog: React.FC = () => {
   return (
     <section id="blog" className="w-full bg-pastel-pink py-20 border-b-2 border-black relative overflow-hidden">
-      {/* Subtle grid overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-5">
         <div className="h-full w-full bg-grid"></div>
       </div>
@@ -92,9 +91,7 @@ const Blog: React.FC = () => {
         </ScrollReveal>
 
         <ScrollReveal delay={200}>
-          {/* Stylized "Messy Stack" with 5 cards total */}
           <div className="flex flex-col gap-10 lg:gap-16">
-            {/* Top row: 3 cards with slight rotations */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
               <div className="lg:-rotate-1 hover:rotate-0 transition-all duration-300">
                 <BlogCard post={blogPosts[0]} />
@@ -107,7 +104,6 @@ const Blog: React.FC = () => {
               </div>
             </div>
             
-            {/* Bottom row: 2 cards centered */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:justify-center gap-8 lg:gap-12">
               <div className="lg:w-1/3 lg:rotate-1 hover:rotate-0 transition-all duration-300">
                 <BlogCard post={blogPosts[3]} />
@@ -129,7 +125,6 @@ const Blog: React.FC = () => {
   );
 };
 
-// Internal Helper for moderate-sized card
 const BlogCard: React.FC<{ post: typeof blogPosts[0] }> = ({ post }) => (
   <div className="group h-full flex flex-col">
     <WindowCard 
@@ -164,7 +159,7 @@ const BlogCard: React.FC<{ post: typeof blogPosts[0] }> = ({ post }) => (
           <div className="flex items-center justify-between pt-4 border-t-2 border-dashed border-gray-100">
              <span className="text-[10px] font-mono font-black text-gray-400">{post.date}</span>
              <Link to="/blog" className="text-[10px] font-mono font-black bg-black text-white px-3 py-1 hover:bg-vivid-pink hover:text-black transition-colors border border-black">
-                READ_PROTOCOL >>
+                READ_PROTOCOL &gt;&gt;
              </Link>
           </div>
         </div>
